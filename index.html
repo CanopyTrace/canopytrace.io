@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CanopyTrace | Cannabis compliance software</title>
+  <meta name="description" content="CanopyTrace is cannabis compliance software for cultivators, processors, distributors, and dispensaries operating across Metrc and BioTrack markets." />
+  <meta property="og:title" content="CanopyTrace" />
+  <meta property="og:description" content="Multi-state cannabis compliance for cultivators, processors, distributors, and dispensaries." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo-512.png" />
+  <meta name="theme-color" content="#0b1020" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <style>
+    :root {
+      --bg: #07111a;
+      --bg-soft: #0d1825;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.11);
+      --text: #f3f7fb;
+      --muted: #b6c3d2;
+      --accent: #79d18d;
+      --accent-2: #24c0cf;
+      --shadow: 0 24px 60px rgba(0,0,0,0.32);
+      --radius: 20px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(121,209,141,0.12), transparent 34%),
+        radial-gradient(circle at 100% 10%, rgba(36,192,207,0.16), transparent 36%),
+        linear-gradient(180deg, #061018 0%, #08121c 50%, #071019 100%);
+      line-height: 1.55;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(100% - 2rem, var(--max)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(7, 17, 26, 0.76);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      font-size: 1rem;
+    }
+
+    .brand-tag {
+      color: var(--muted);
+      font-size: .75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .92rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-weight: 700;
+      transition: .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.11);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(121,209,141,0.30), rgba(36,192,207,0.25));
+      border-color: rgba(121,209,141,0.28);
+    }
+
+    .hero {
+      padding: 4.8rem 0 2.8rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .46rem .8rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      margin: 0 0 1rem;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 0 1.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .85rem;
+      margin-bottom: 1rem;
+    }
+
+    .micro {
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .hero-frame {
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-visual {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 440px;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,205,102,0.30), transparent 28%),
+        radial-gradient(circle at 100% 100%, rgba(36,192,207,0.20), transparent 28%),
+        linear-gradient(135deg, #10202b 0%, #0b1520 58%, #0d1825 100%);
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+    }
+
+    .hero-visual img.main-logo {
+      width: min(100%, 430px);
+      height: auto;
+      border-radius: 50%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .status-strip {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+    }
+
+    .status-pill {
+      border-radius: 14px;
+      padding: .8rem .9rem;
+      background: rgba(7,17,26,0.78);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .status-pill strong {
+      display: block;
+      color: var(--text);
+      font-size: .98rem;
+      margin-bottom: .15rem;
+    }
+
+    section { padding: 2.4rem 0; }
+
+    .section-head {
+      max-width: 60ch;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      margin: 0 0 .55rem;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-3, .grid-2 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: .15rem 0 .5rem;
+      font-size: 1.06rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .list {
+      display: grid;
+      gap: .75rem;
+      margin-top: .95rem;
+    }
+
+    .list-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .8rem;
+      align-items: start;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      margin-top: .35rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 5px rgba(121,209,141,0.08);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 1rem;
+    }
+
+    .cta {
+      margin: 2.2rem 0 4rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.25rem 0 2rem;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: .15rem .4rem;
+      border-radius: .4rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .9em;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid, .split, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .status-strip { grid-template-columns: 1fr; }
+      .hero-visual { min-height: auto; padding-bottom: 13.5rem; }
+    }
+
+    @media (max-width: 720px) {
+      .nav { align-items: flex-start; }
+      nav { gap: .8rem; }
+      nav a { margin: 0; }
+      .hero { padding-top: 3.3rem; }
+      .brand-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="CanopyTrace home">
+        <img src="assets/logo-128.png" alt="CanopyTrace logo" />
+        <span class="brand-text">
+          <span class="brand-name">CanopyTrace</span>
+          <span class="brand-tag">Compliance. Connected.</span>
+        </span>
+      </a>
+      <nav>
+        <a href="#platform">Platform</a>
+        <a href="#operators">Operators</a>
+        <a href="#launch">Launch</a>
+        <a class="btn" href="mailto:hello@canopytrace.io">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Metrc + BioTrack ready</div>
+          <h1>Cannabis compliance software built for operators, not paperwork.</h1>
+          <p class="lead">
+            CanopyTrace gives cultivators, processors, distributors, and dispensaries one operational layer across inventory,
+            packaging, transfers, retail, and regulator sync.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="mailto:hello@canopytrace.io?subject=CanopyTrace%20intro">Request an intro</a>
+            <a class="btn" href="#platform">See the platform</a>
+          </div>
+          <p class="micro">
+            Multi-state cannabis compliance for teams operating across Metrc and BioTrack markets.
+          </p>
+        </div>
+
+        <div class="hero-frame">
+          <div class="hero-visual">
+            <img class="main-logo" src="assets/logo-512.png" alt="CanopyTrace branded circular cannabis-and-technology mark" />
+            <div class="status-strip">
+              <div class="status-pill">
+                <strong>Traceability</strong>
+                Seed, lot, package, transfer, and sale lineage in one place.
+              </div>
+              <div class="status-pill">
+                <strong>Compliance</strong>
+                State-aware workflows with regulator sync and audit visibility.
+              </div>
+              <div class="status-pill">
+                <strong>Deployment</strong>
+                Self-hosted, managed SaaS, or BYOI cloud deployment.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="container">
+        <div class="section-head">
+          <h2>A clean operations layer for a messy regulatory world.</h2>
+          <p>
+            The platform is designed around facility operations first, with regulator-specific connectors and policy packs layered on top.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Operator-first workflows</h3>
+            <p>Handle cultivation, processing, packaging, transfers, intake, retail, and reconciliation without shaping your entire system around one regulator.</p>
+          </article>
+          <article class="card">
+            <h3>Vendor-neutral compliance core</h3>
+            <p>Use a canonical data model internally, then route state-specific logic through adapters for Metrc, BioTrack, and future systems.</p>
+          </article>
+          <article class="card">
+            <h3>Deployment flexibility</h3>
+            <p>Support self-hosted operators, white-glove SaaS customers, and larger enterprise buyers that want deployment in their own cloud account.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="operators">
+      <div class="container split">
+        <div class="card">
+          <div class="section-head" style="margin-bottom:.75rem">
+            <h2>Who it is for</h2>
+            <p>Built for operators that need reliable inventory, traceability, and regulator integration without cobbling together multiple disconnected tools.</p>
+          </div>
+          <div class="list">
+            <div class="list-item"><span class="dot"></span><div><strong>Cultivators</strong><br><span style="color:var(--muted)">Plant tracking, harvest lots, waste, location control, and lineage.</span></div></div>
+            <div class="list-item"><span class="dot"></span><div><strong>Processors</strong><br><span style="color:var(--muted)">Process runs, lot transformations, QA workflows, testing, and finished goods packaging.</span></div></div>
+            <div class="list-item"><span class="dot"></span><div><strong>Distributors and retailers</strong><br><span style="color:var(--muted)">Transfers, intake validation, package handling, sales, receipts, and device-level attribution.</span></div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head" style="margin-bottom:.75rem">
+            <h2>Why CanopyTrace</h2>
+            <p>A modern compliance platform should feel like software, not a set of workarounds.</p>
+          </div>
+          <div class="list">
+            <div class="list-item"><span class="dot"></span><div><strong>Clear audit trail</strong><br><span style="color:var(--muted)">Business events, regulator sync, and operational changes are separated cleanly for better visibility and support.</span></div></div>
+            <div class="list-item"><span class="dot"></span><div><strong>Practical architecture</strong><br><span style="color:var(--muted)">Self-host what you want, outsource what you do not, and keep the regulator edge under control.</span></div></div>
+            <div class="list-item"><span class="dot"></span><div><strong>Built to evolve</strong><br><span style="color:var(--muted)">State rules change. Vendor ecosystems change. Your core operating data model should not need a rewrite every time they do.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="launch">
+      <div class="container">
+        <div class="section-head">
+          <h2>Launch quickly, iterate later.</h2>
+          <p>
+            This page is intentionally lightweight so it can be deployed on GitHub Pages or any static host while the product and content evolve.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Suggested first pages</h3>
+            <div class="list">
+              <div class="list-item"><span class="dot"></span><div><strong>/metrc-integration</strong><br><span style="color:var(--muted)">Landing page for Metrc-connected operators.</span></div></div>
+              <div class="list-item"><span class="dot"></span><div><strong>/biotrack-integration</strong><br><span style="color:var(--muted)">Landing page for BioTrack and BT Government markets.</span></div></div>
+              <div class="list-item"><span class="dot"></span><div><strong>/cannabis-compliance-software</strong><br><span style="color:var(--muted)">Category page for broader SEO targeting.</span></div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Contact placeholder</h3>
+            <p>
+              Update the email links to your real inbox and replace any placeholder copy once you are ready for traffic.
+            </p>
+            <p style="margin-top:1rem;color:var(--muted)">
+              Current CTA target: <code>hello@canopytrace.io</code>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="card" style="padding:1.5rem 1.5rem 1.25rem;">
+          <div class="section-head" style="margin-bottom:.85rem">
+            <h2>CanopyTrace</h2>
+            <p>Compliance. Connected.</p>
+          </div>
+          <div class="hero-actions" style="margin-bottom:0">
+            <a class="btn primary" href="mailto:hello@canopytrace.io?subject=CanopyTrace%20pilot">Start the conversation</a>
+            <a class="btn" href="https://github.com/" target="_blank" rel="noreferrer noopener">Deploy on GitHub Pages</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      CanopyTrace is a working brand concept for cannabis compliance software supporting cultivators, processors, distributors, and dispensaries.
+    </div>
+  </footer>
+</body>
+</html>
